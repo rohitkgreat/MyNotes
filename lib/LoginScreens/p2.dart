@@ -79,7 +79,7 @@ class _EmailSignInScreenState extends State<EmailSignInScreen> {
               ),
               Center(
                 child: Text(
-                  "Sing in with email and password",
+                  "Sign in with email and password",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

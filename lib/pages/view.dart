@@ -37,7 +37,7 @@ class _EditState extends State<Edit> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       // color: Color(0xffC9CCD5),
-                      color: Colors.grey.shade300),
+                      color: Colors.blue.shade100),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: IconButton(
@@ -57,7 +57,7 @@ class _EditState extends State<Edit> {
                   width: double.infinity,
                   height: 600,
                   //color: Color(0xffC9CCD5),
-                  color: Colors.grey.shade300,
+                  color: Colors.blue.shade100,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

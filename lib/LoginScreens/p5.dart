@@ -101,21 +101,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
               Spacer(),
-              Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: "Term and Conditions ",
-                    children: [
-                      TextSpan(
-                        text: "Apply!!",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),

@@ -43,7 +43,7 @@ class _ViewnoteState extends State<Viewnote> {
                     ),
                     ElevatedButton(
                       onPressed: save,
-                      child: Text('Save'),
+                      child: Text('Update'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.red),
                       ),
@@ -69,7 +69,7 @@ class _ViewnoteState extends State<Viewnote> {
                         height: 12,
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.75,
+                        height: MediaQuery.of(context).size.height * 0.65,
                         child: TextFormField(
                           initialValue: '${widget.data['description']}',
                           style: TextStyle(
@@ -81,7 +81,15 @@ class _ViewnoteState extends State<Viewnote> {
                             desc = value;
                           },
                         ),
-                      )
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              dlt();
+                            },
+                            child: Text('Delete')),
+                      ),
+                    
                     ],
                   ),
                 )
@@ -94,6 +102,7 @@ class _ViewnoteState extends State<Viewnote> {
   }
 
   void dlt() async {
+    await widget.ref.delete();
     Navigator.of(context).pop();
   }
 

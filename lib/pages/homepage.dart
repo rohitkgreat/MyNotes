@@ -1,4 +1,6 @@
 //import 'package:firebase/firebase.dart';
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,14 @@ import 'package:notess/pages/view.dart';
 
 import 'package:notess/pages/editing.dart';
 
-import 'model.dart';
+Random random = new Random();
+int rand = random.nextInt(2);
+
+List check1 = [true, false];
+
+bool _star = check1[rand];
+
+bool check = _star;
 
 class HomePage extends StatefulWidget {
   final FirebaseAuth auth;
@@ -21,6 +30,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('notes');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +56,25 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Logout',
-                  style: TextStyle(fontSize: 30),
-                ),
-                IconButton(
+                TextButton(
                   onPressed: () async {
                     await widget.auth.signOut();
                     await googleSignIn.signOut();
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LandingScreen()));
                   },
-                  icon: Icon(Icons.logout),
-                  color: Colors.black,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Logout',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(Icons.logout),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -124,12 +143,22 @@ class _HomePageState extends State<HomePage> {
               setState(() {});
             });
           },
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blue.shade900,
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: Databasee.read2(),
+          stream: ref.snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              if (snapshot.data!.docs.length == 0)
+                return Center(
+                  child: Text(
+                    "No Notes to display for now!",
+                    style: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                );
+
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
@@ -175,7 +204,12 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Spacer(),
-                                  Icon(Icons.star_border_outlined),
+                                  Icon(
+                                    check
+                                        ? Icons.star_border_outlined
+                                        : Icons.star,
+                                    color: Colors.yellow,
+                                  ),
                                   PopupMenuButton(
                                     icon: Icon(Icons.more_vert_outlined),
                                     itemBuilder: (context) {

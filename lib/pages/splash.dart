@@ -23,9 +23,14 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('MyNotess'),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Text(
+            'MyNotess',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
       ),
     );
   }

@@ -11,7 +11,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,18 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Noteit',
-
-//       // theme: ThemeData(backgroundColor: Colors.white),
-//       theme: ThemeData.dark().copyWith(
-//           //  primaryColor: Colors.white,
-//           //scaffoldBackgroundColor: Colors.white,
-//           ),
-//       home: LoginPage(),
-//     );
-//   }
-// }
