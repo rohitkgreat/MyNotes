@@ -57,7 +57,7 @@ class _EditState extends State<Edit> {
                   width: double.infinity,
                   height: 600,
                   //color: Color(0xffC9CCD5),
-                  color: Colors.blue.shade100,
+                  color: Colors.blue.shade50,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

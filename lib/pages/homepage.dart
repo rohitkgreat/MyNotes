@@ -1,26 +1,17 @@
-//import 'package:firebase/firebase.dart';
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notess/LoginScreens/p1.dart';
+import 'package:notess/LoginScreens/FirstScreen.dart';
 import 'package:notess/controller/google_auth.dart';
 import 'package:notess/pages/addnote.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:notess/pages/view.dart';
 
 import 'package:notess/pages/editing.dart';
 
-Random random = new Random();
-int rand = random.nextInt(2);
-
-List check1 = [true, false];
-
-bool _star = check1[rand];
-
-bool check = _star;
+bool check = false;
 
 class HomePage extends StatefulWidget {
   final FirebaseAuth auth;
@@ -134,19 +125,14 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(
+            Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => Addnote()),
-            )
-                .then((value) {
-              print('Calling');
-              setState(() {});
-            });
+            );
           },
           backgroundColor: Colors.blue.shade900,
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: ref.snapshots(),
+          stream: ref.orderBy('time', descending: true).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.docs.length == 0)
@@ -162,6 +148,7 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
+                  // final snapshot1 = snapshot.data!.docs.reversed;
                   Map<dynamic, dynamic>? data =
                       snapshot.data!.docs[index].data() as Map?;
                   DateTime mydate = data!['time'].toDate();
@@ -205,9 +192,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Spacer(),
                                   Icon(
-                                    check
-                                        ? Icons.star_border_outlined
-                                        : Icons.star,
+                                    Icons.star,
                                     color: Colors.yellow,
                                   ),
                                   PopupMenuButton(

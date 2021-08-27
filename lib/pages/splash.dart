@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:notess/LoginScreens/p1.dart';
+import 'package:notess/LoginScreens/FirstScreen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

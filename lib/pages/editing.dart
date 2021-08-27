@@ -39,6 +39,11 @@ class _ViewnoteState extends State<Viewnote> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))))),
                       child: Icon(Icons.arrow_back_ios_new_outlined),
                     ),
                     ElevatedButton(
@@ -89,7 +94,6 @@ class _ViewnoteState extends State<Viewnote> {
                             },
                             child: Text('Delete')),
                       ),
-                    
                     ],
                   ),
                 )

@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-String desc = "";
-String text = "";
-
 class Addnote extends StatefulWidget {
   const Addnote({Key? key}) : super(key: key);
 
@@ -14,6 +11,8 @@ class Addnote extends StatefulWidget {
 }
 
 class _AddnoteState extends State<Addnote> {
+  String desc = "";
+  String text = "";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,17 +25,33 @@ class _AddnoteState extends State<Addnote> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Icon(Icons.arrow_back_ios_new_outlined),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(15))))),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          size: 30,
+                        ),
+                      ),
                     ),
                     ElevatedButton(
-                      onPressed: add,
-                      child: Text('Save'),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))))),
+                      onPressed: add,
+                      child: Text(
+                        'Save',
+                        style: TextStyle(fontSize: 24),
                       ),
                     ),
                   ],
@@ -83,19 +98,25 @@ class _AddnoteState extends State<Addnote> {
   }
 
   void add() {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final CollectionReference ref = _firestore
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('notes');
-    var data = {
-      'title': text,
-      'description': desc,
-      'time': DateTime.now(),
-    };
+    if (text.isEmpty || desc.isEmpty) {
+      SnackBar snackBar = SnackBar(content: Text('One or both field is Empty'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      final CollectionReference ref = _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('notes');
+      var data = {
+        'title': text,
+        'description': desc,
+        'time': DateTime.now(),
+      };
 
-    ref.add(data);
-
+      ref.add(data);
+    }
+    text = "";
+    desc = "";
     // Databasee.create(data);
     Navigator.pop(context);
   }
