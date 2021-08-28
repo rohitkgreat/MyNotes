@@ -1,6 +1,8 @@
-# notess
+# MyNotes
 
-A new Flutter project.
+Made an app for notes saving. It has the basic functionlity of CRUD(Create, read,update and Delete). It uses Firebase for Authentication.
+
+Check out my app: https://drive.google.com/drive/folders/1GR5bo6LJ6OEMmYlTCZm8abRsu7JUgwZA?usp=sharing
 
 ## Getting Started
 
